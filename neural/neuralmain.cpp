@@ -18,18 +18,6 @@ double SHIFT_LIMIT = 1;
 //Main function
 int main(int argc, char *argv[])
 {
-	
-
-
-
-
-
-
-
-
-
-
-
 
 	srand(20);
 

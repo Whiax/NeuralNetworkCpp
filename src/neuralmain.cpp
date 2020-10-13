@@ -5,7 +5,7 @@
 #include "optimizer/shakingtree.h"
 #include "dataset/dataset.h"
 
-#include <time.h>
+#include <ctime>
 #include <numeric>
 #include <fstream>
 
@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
 
 	NeuralNetwork n;
 	n.addLayer({ { "type", LayerType::INPUT },{ "size",2 }});
-	for (size_t i = 0; i < 10; i++)
-		n.addLayer({ { "type", LayerType::STANDARD },{ "size",50} ,{ "activation",ActivationFunction::SIGMOID } });
+	for (size_t i = 0; i < 5; i++)
+		n.addLayer({ { "type", LayerType::STANDARD },{ "size",10} ,{ "activation",ActivationFunction::SIGMOID } });
 	n.addLayer({ { "type", LayerType::OUTPUT},{ "size",1} ,{ "activation",ActivationFunction::SIGMOID } });
 	n.autogenerate();
 

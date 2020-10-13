@@ -78,7 +78,7 @@ void Neuron::addAccumulated(double v)
 
 void Neuron::addNext(Neuron *n)
 {
-    _next.push_back(new Edge(n, this, random(-5, 5)));
+    _next.push_back(new Edge(n,this, random(-5, 5)));
 	n->addPrevious(_next.back());
 }
 
@@ -104,21 +104,11 @@ void Neuron::alterWeights(const vector<double>& weights)
         _next[i_edge]->alterWeight(weights[i_edge]);
 }
 
-vector<double*> Neuron::getWeights()
+vector<double> Neuron::getWeights()
 {
-	vector<double*> w;
-	w.reserve(_next.size());
-	for (size_t i_edge = 0; i_edge < _next.size(); ++i_edge)
-		w.push_back(_next[i_edge]->weightP());
-	return std::move(w);
-}
-
-vector<Edge*> Neuron::getEdges()
-{
-	vector<Edge*> w;
-	w.reserve(_next.size());
-	for (size_t i_edge = 0; i_edge < _next.size(); ++i_edge)
-		w.push_back(_next[i_edge]);
+	vector<double> w;
+	for(size_t i_edge = 0; i_edge < _next.size(); ++i_edge)
+		w.push_back(_next[i_edge]->weight());
 	return std::move(w);
 }
 
@@ -171,13 +161,10 @@ vector<double> Neuron::getBackpropagationShifts(const vector<double>& target)
 	{
 		float d = 0;
 		for (size_t i = 0; i < _next.size(); i++)
-			d += _next[i]->backpropagationMemory() * _next[i]->weight();
+			d += _next[i]->backprogationMemory() * _next[i]->weight();
 		d *= outputDerivative();
 		for (size_t i = 0; i < _previous.size(); i++)
-		{
-			_previous[i]->setBackpropagationMemory(d);
 			dw[i] = -d * _previous[i]->neuronb()->output();
-		}
 	}
 	return dw;
 }

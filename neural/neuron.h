@@ -1,21 +1,10 @@
 #ifndef NEURON_H
 #define NEURON_H
 
+#include "mainheader.h"
 #include "edge.h"
-#include "../misc/functions.h"
+#include "functions.h"
 #include "layer.h"
-
-#include <iostream>
-
-#include <vector>
-#include <limits>
-
-class NeuralNetwork;
-class Neuron;
-class Layer;
-using namespace std;
-
-typedef unsigned int uint;
 
 enum ActivationFunction
 {
@@ -56,9 +45,7 @@ public:
 
     void alterWeights(const vector<double>& weights);
 
-	vector<double*> getWeights();
-
-	vector<Edge*> getEdges();
+	vector<double> getWeights();
 
 	void randomizeAllWeights(double abs_value);
 
@@ -72,7 +59,7 @@ public:
 
 	bool isBias() const;
 
-public:
+private:
     Layer* _layer = NULL;
     int _id_neuron = 0;
     double _accumulated = 0.0;

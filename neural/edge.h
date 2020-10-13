@@ -1,21 +1,10 @@
 #ifndef EDGE_H
 #define EDGE_H
 
-
-#include <iostream>
-
-#include <vector>
-#include <limits>
-
-class NeuralNetwork;
-class Neuron;
-class Layer;
-using namespace std;
-
-typedef unsigned int uint;
-
+#include "mainheader.h"
 
 extern double LEARNING_RATE;
+extern double SHIFT_LIMIT;
 
 //Edge between two neurons
 class Edge
@@ -27,9 +16,7 @@ public:
 
 	Neuron* neuronb() const;
 
-	double weight();
-
-	double* weightP();
+    double weight() const;
 
     void propagate(double neuron_output);
 
@@ -39,13 +26,11 @@ public:
 
 	double getLastShift() const;
 
-	void resetLastShift();
-
-	double backpropagationMemory() const;
+	double backprogationMemory() const;
 
 	void setBackpropagationMemory(double v);
 
-public:
+private:
 	Neuron* _n = nullptr;
 	Neuron* _nb = nullptr;
     double _w = 0.0;

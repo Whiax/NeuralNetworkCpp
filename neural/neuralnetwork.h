@@ -1,25 +1,12 @@
 #ifndef NEURALNETWORK_H
 #define NEURALNETWORK_H
 
-#include "../misc/functions.h"
+#include "mainheader.h"
+#include "functions.h"
 #include "layer.h"
-#include "../dataset/dataset.h"
 #include <unordered_map>
 
 #define RAND_MAX_WEIGHT 1
-
-#include <iostream>
-
-#include <vector>
-#include <limits>
-
-class NeuralNetwork;
-class Neuron;
-class Layer;
-using namespace std;
-
-typedef unsigned int uint;
-
 
 class NeuralNetwork
 {
@@ -48,9 +35,7 @@ public:
 
 	void shiftBackWeights(const vector<vector<vector<double>>>& weights);
 
-	vector<vector<vector<double*>>> getWeights();
-
-	vector<vector<vector<Edge*>>> getEdges();
+	vector<vector<vector<double>>> getWeights();
 
     void randomizeAllWeights();
 
@@ -64,17 +49,13 @@ public:
 
 	vector<double> predict(const vector<double>& in);
 
-	double predictAllForScore(const Dataset& dataset, Datatype d = TEST, int limit=-1);
+	vector<vector<vector<double>>> getBackpropagationShifts(const vector<double>& in, const vector<double>& out);
 
-	double predictPartialForScore(const Dataset& dataset);
+	void backpropagate(const vector<vector<double>*>& ins, const vector<vector<double>*>& outs);
 
 	vector<Layer*> getLayers();
 
-
-
-
-
-public:
+private:
     vector<Layer*> _layers;
 	double _fitness;
 

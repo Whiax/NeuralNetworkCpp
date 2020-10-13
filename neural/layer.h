@@ -2,19 +2,8 @@
 #define LAYER_H
 
 #include "neuron.h"
+#include "mainheader.h"
 #include <unordered_map>
-
-#include <iostream>
-
-#include <vector>
-#include <limits>
-
-class NeuralNetwork;
-class Neuron;
-class Layer;
-using namespace std;
-
-typedef unsigned int uint;
 
 enum LayerType
 {
@@ -53,9 +42,7 @@ public:
 
 	void shiftBackWeights(const vector<vector<double> >& weights);
 
-	vector<vector<double*> > getWeights();
-
-	vector<vector<Edge*> > getEdges();
+	vector<vector<double> > getWeights();
 
 	void randomizeAllWeights(double abs_value);
 
@@ -73,7 +60,7 @@ public:
 
 	NeuralNetwork* getNet() const { return _net; }
 
-public:
+private:
 	NeuralNetwork* _net;
     int _id_layer;
     vector<Neuron*> _neurons;

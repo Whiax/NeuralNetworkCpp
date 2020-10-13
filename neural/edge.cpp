@@ -16,19 +16,14 @@ Neuron* Edge::neuronb() const
 	return _nb;
 }
 
-double Edge::weight() 
+double Edge::weight() const
 {
     return _w;
 }
 
-double* Edge::weightP()
-{
-	return &_w;
-}
-
 void Edge::propagate(double neuron_output)
 {
-	neuron()->addAccumulated(neuron_output * weight());
+    neuron()->addAccumulated(neuron_output * weight());
 }
 
 void Edge::alterWeight(double w)
@@ -44,18 +39,13 @@ void Edge::shiftWeight(double dw)
 	_last_shift = dw;
 }
 
-void Edge::resetLastShift()
-{
-	_w -= _last_shift;
-}
-
 double Edge::getLastShift() const
 {
 	return _last_shift;
 }
 
 
-double Edge::backpropagationMemory() const
+double Edge::backprogationMemory() const
 {
 	return _backpropagation_memory;
 }

@@ -1,7 +1,5 @@
 #include "neuralnetwork.h"
 #include "neuron.h"
-#include "../misc/functions.h"
-
 
 NeuralNetwork::NeuralNetwork()
 {
@@ -83,21 +81,11 @@ void NeuralNetwork::shiftBackWeights(const vector<vector<vector<double> > >& wei
 			_layers[i_layer]->shiftBackWeights(weights[i_layer]);
 }
 
-vector<vector<vector<double*>>> NeuralNetwork::getWeights()
+vector<vector<vector<double>>> NeuralNetwork::getWeights()
 {
-	vector<vector<vector<double*>>> w;
-	w.reserve(_layers.size() - 1);
-	for (int i_layer = 0; i_layer < _layers.size() - 1; ++i_layer)
+	vector<vector<vector<double>>> w;
+	for(int i_layer = 0; i_layer < _layers.size() - 1; ++i_layer)
 		w.push_back(std::move(_layers[i_layer]->getWeights()));
-	return std::move(w);
-}
-
-vector<vector<vector<Edge*>>> NeuralNetwork::getEdges()
-{
-	vector<vector<vector<Edge*>>> w;
-	w.reserve(_layers.size() - 1);
-	for (int i_layer = 0; i_layer < _layers.size() - 1; ++i_layer)
-		w.push_back(std::move(_layers[i_layer]->getEdges()));
 	return std::move(w);
 }
 
@@ -155,31 +143,50 @@ vector<double> NeuralNetwork::predict(const vector<double>& in)
 	return output();
 }
 
-double NeuralNetwork::predictAllForScore(const Dataset& dataset, Datatype d,  int limit)
+vector<vector<vector<double>>> NeuralNetwork::getBackpropagationShifts(const vector<double>& in, const vector<double>& out)
 {
-	if (limit == 0)
-		return 1;
-	double s = 0;
-
-	//Sans limite explicite, on score toutes les données
-	if (limit == -1)
-		for (size_t i = 0; i < dataset.getIns(d).size(); i++)
-			s += distanceVector(predict(*dataset.getIns(d)[i]), *dataset.getOuts(d)[i]);
-	//Sinon on prend "limit" données
-	else
-		for (size_t i = 0; i < limit; i++)
-		{
-			int r = rand() % dataset.getIns(d).size();
-			s += distanceVector(predict(*dataset.getIns(d)[r]), *dataset.getOuts(d)[r]);
-		}
-
-	//On moyenne le score
-	if (limit == -1)
-		s /= dataset.getIns(d).size();
-	else
-		s /= limit;
-	return s;
+	vector<vector<vector<double>>> dw(_layers.size());
+	auto out_exp = predict(in);
+	for (int i = _layers.size() - 1; i >= 1; --i)
+	{
+		auto _dw = move(_layers[i]->getBackpropagationShifts(out));
+		dw[_layers[i]->getId()] = _dw;
+	}
+	return move(dw);
+	
 }
+
+void  NeuralNetwork::backpropagate(const vector<vector<double>*>& ins, const vector<vector<double>*>& outs)
+{
+	vector<vector<vector<double>>> dw(_layers.size());
+	bool is_init = false;
+	for (size_t i = 0; i < ins.size(); i++)
+	{
+		auto in = ins[i];
+		auto out = outs[i];
+		auto _dw = getBackpropagationShifts(*in, *out);
+		if (!is_init)
+		{
+			for (size_t j = 0; j < _dw.size(); j++)
+			{
+				dw[j].resize(_dw[j].size());
+				for (size_t k = 0; k < _dw[j].size(); k++)
+					dw[j][k].resize(_dw[j][k].size(),0);
+			}
+		}
+		for (size_t j = 0; j < _dw.size(); j++)
+			for (size_t k = 0; k < _dw[j].size(); k++)
+				for (size_t l = 0; l < _dw[j][k].size(); l++)
+					dw[j][k][l] += _dw[j][k][l]; //edge l, neuron k, layer j
+	}
+	for (size_t j = 0; j < dw.size(); j++)
+		for (size_t k = 0; k < dw[j].size(); k++)
+			for (size_t l = 0; l < dw[j][k].size(); l++)
+				dw[j][k][l] /= ins.size();
+
+	shiftBackWeights(dw);
+}
+
 
 vector<Layer*> NeuralNetwork::getLayers()
 {

@@ -31,14 +31,6 @@ double random(double low, double high)
     return low + static_cast <double> (rand()) /( static_cast <double> (RAND_MAX/(high-low)));
 }
 
-double distanceVector(const vector<double>& v1, const vector<double>& v2)
-{
-	double d = 0;
-	for (size_t i = 0; i < v1.size(); i++)
-		d += (v1[i] - v2[i])*(v1[i] - v2[i]);
-	return d;
-}
-
 
 
 

@@ -72,7 +72,7 @@ vector<double> Layer::output()
 
 }
 
-vector<Neuron *> Layer::neurons() const
+const vector<Neuron *>& Layer::neurons() const
 {
     return _neurons;
 }

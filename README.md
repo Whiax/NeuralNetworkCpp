@@ -4,6 +4,9 @@ Basic deep learning framework in C++ / new ShakingTree optimization algorithm
 All information can be found here:
 https://medium.com/@hyugen.ai/neural-network-in-c-from-scratch-and-backprop-free-optimizer-d2a34bb92688
 
+/!\ The implementation is very basic and mostly made to learn, play and try things with deep neural networks. /!\
+For a professional deep learning library in C++ I'll recommend http://dlib.net/ or the C++ API of Pytorch and Tensorflow.
+
 ## Framework Design
 ### 1. Folders (latest version)
 - Neural: Contains classes related to the neural network

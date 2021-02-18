@@ -7,6 +7,8 @@ https://medium.com/@hyugen.ai/neural-network-in-c-from-scratch-and-backprop-free
 /!\ The implementation is very basic and mostly made to learn, play and try things with deep neural networks. There's no convolutional networks, no transformers, no Adam etc..
 For a professional deep learning library in C++ I'll recommend http://dlib.net/ or the C++ API of Pytorch and Tensorflow.
 
+PS: I worked on this project with Visual Studio / Windows and it seems that some indentations were incorrectly encoded, sorry about that
+
 ## Framework Design
 ### 1. Folders (latest version)
 - Neural: Contains classes related to the neural network

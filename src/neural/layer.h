@@ -47,7 +47,7 @@ public:
 
     vector<double> output();
 
-    vector<Neuron *> neurons() const;
+    const vector<Neuron *>& neurons() const;
 
 	void alterWeights(const vector<vector<double> >& weights);
 

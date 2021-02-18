@@ -23,10 +23,10 @@ public:
 
 	void minimize();
 
-	void setBatchSize(double bs);
+	void setBatchSize(size_t bs);
 
 private:
-	int _batch_size = 20;
+	size_t _batch_size = 20;
 };
 
 

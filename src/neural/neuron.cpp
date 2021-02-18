@@ -169,7 +169,7 @@ vector<double> Neuron::getBackpropagationShifts(const vector<double>& target)
 	}
 	else 
 	{
-		float d = 0;
+		double d = 0;
 		for (size_t i = 0; i < _next.size(); i++)
 			d += _next[i]->backpropagationMemory() * _next[i]->weight();
 		d *= outputDerivative();

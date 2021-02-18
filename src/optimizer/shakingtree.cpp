@@ -53,8 +53,8 @@ void Shakingtree::minimizeBasicLarger()
 	//get a score
 	int batch_size = 100;
 	int weight_amplitude = 5;
-	int n_new_parameters = 5;// int(0.1 * _p_ids.size());
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	size_t n_new_parameters = 5;// int(0.1 * _p_ids.size());
+	unsigned seed = (unsigned int)(std::chrono::system_clock::now().time_since_epoch().count());
 	std::shuffle(_p_ids.begin(), _p_ids.end(), std::default_random_engine(seed));
 	double s = getScore(TRAIN, batch_size);
 
@@ -84,7 +84,7 @@ void Shakingtree::minimizeComplex()
 	//PHASE 1 We compute the previous score
 	size_t EVALSIZE = 100;
 	srand(_total_iter);
-	float score = getScore(TRAIN, EVALSIZE);
+	double score = getScore(TRAIN, EVALSIZE);
 
 
 	//We apply the shift to the weights
@@ -102,7 +102,7 @@ void Shakingtree::minimizeComplex()
 	//PHASE 2 : We compute the delta
 	//evaluate score
 	srand(_total_iter);
-	float delta_score = getScore(TRAIN, EVALSIZE) - score;
+	double delta_score = getScore(TRAIN, EVALSIZE) - score;
 
 	_delta_score.push_back(delta_score);
 	_shift.push_back(neww);
@@ -127,7 +127,7 @@ void Shakingtree::minimizeComplex()
 			{
 				for (size_t i = 0; i < _p.size(); i++)
 				{
-					float wsum = 0;
+					double wsum = 0;
 					wsum += _shift[j][i];
 					_p[i]->shiftWeight(wsum*LEARNING_RATE);
 				}
@@ -160,12 +160,12 @@ void Shakingtree::minimizeBasicPerLayer()
 
 	for (size_t i = 0; i < 1000; i++)
 	{
-		float s = getScore(TRAIN, 100);
-		float neww = random(-7, 7);
+		double s = getScore(TRAIN, 100);
+		double neww = random(-7, 7);
 		int i_edge = rand() % layer.size();
-		float oldw = layer[i_edge]->weight();
+		double oldw = layer[i_edge]->weight();
 		layer[i_edge]->alterWeight(neww);
-		float news = getScore(TRAIN, 100);
+		double news = getScore(TRAIN, 100);
 		if (news > s)
 			layer[i_edge]->shiftWeight(oldw);
 	}
@@ -189,7 +189,7 @@ void Shakingtree::mapParameters()
 			}
 		cout << _p.size() << " mapped parameters" << endl;
 	}
-	for (int i = 0; i < _p.size(); i++)  _p_ids.push_back(i);
+	for (size_t i = 0; i < _p.size(); i++)  _p_ids.push_back(i);
 }
 
 

@@ -34,7 +34,7 @@ double LEARNING_RATE = 0.5000;
 int main(int argc, char *argv[])
 {
 	//Init random and logs if required
-	srand(time(0));
+	srand(uint(time(0)));
 	//ofstream logs("logs.txt");
 
 
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 
 
 	//Init the main training loop (nb: the goal is to lower the score, score = loss)
-	float lr_reduce_amplitude = 0.9;
+	double lr_reduce_amplitude = 0.9;
 	int lr_reduce_schedule = 500;
 	int n_iteration = 50000;
 	int validate_every = 10;
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 			mintest = stest < mintest ? stest : mintest;
 			cout << "it:" << i << '\t' << "    test_score:" << stest << "    train_score:" << strain << "   (best_test_score : " << mintest << ")" << endl;
 
-			float delta_t = (clock() - t) / 1000.0;
+			double delta_t = (clock() - t) / 1000.0;
 			//logs << i << ";" << delta_t << ";" << stest << ";" << strain << ";" << mintest << endl;
 		}
 

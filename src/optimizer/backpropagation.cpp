@@ -6,7 +6,7 @@ void Backpropagation::setLearningRate(double lr)
 	LEARNING_RATE = lr;
 }
 
-void Backpropagation::setBatchSize(double bs)
+void Backpropagation::setBatchSize(size_t bs)
 {
 	_batch_size = bs;
 }

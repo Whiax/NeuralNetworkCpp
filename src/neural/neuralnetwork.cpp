@@ -66,13 +66,13 @@ string NeuralNetwork::outputString()
 
 void NeuralNetwork::connectComplete()
 {
-    for(int i_layer = 0; i_layer < _layers.size()-1; ++i_layer)
+    for(size_t i_layer = 0; i_layer < _layers.size()-1; ++i_layer)
 		_layers[i_layer]->connectComplete(_layers[i_layer+1]);
 }
 
 void NeuralNetwork::alterWeights(const vector<vector<vector<double> > >& weights)
 {
-	for (int i_layer = 0; i_layer < _layers.size() - 1; ++i_layer)
+	for (size_t i_layer = 0; i_layer < _layers.size() - 1; ++i_layer)
 		_layers[i_layer]->alterWeights(weights[i_layer]);
 }
 
@@ -87,7 +87,7 @@ vector<vector<vector<double*>>> NeuralNetwork::getWeights()
 {
 	vector<vector<vector<double*>>> w;
 	w.reserve(_layers.size() - 1);
-	for (int i_layer = 0; i_layer < _layers.size() - 1; ++i_layer)
+	for (size_t i_layer = 0; i_layer < _layers.size() - 1; ++i_layer)
 		w.push_back(std::move(_layers[i_layer]->getWeights()));
 	return std::move(w);
 }
@@ -96,14 +96,14 @@ vector<vector<vector<Edge*>>> NeuralNetwork::getEdges()
 {
 	vector<vector<vector<Edge*>>> w;
 	w.reserve(_layers.size() - 1);
-	for (int i_layer = 0; i_layer < _layers.size() - 1; ++i_layer)
+	for (size_t i_layer = 0; i_layer < _layers.size() - 1; ++i_layer)
 		w.push_back(std::move(_layers[i_layer]->getEdges()));
 	return std::move(w);
 }
 
 void NeuralNetwork::randomizeAllWeights()
 {
-	for(int i_layer = 0; i_layer < _layers.size() - 1; ++i_layer)
+	for(size_t i_layer = 0; i_layer < _layers.size() - 1; ++i_layer)
 		_layers[i_layer]->randomizeAllWeights(RAND_MAX_WEIGHT); //random weights from -RAND_MAX_WEIGHT to RAND_MAX_WEIGHT
 }
 
@@ -167,7 +167,7 @@ double NeuralNetwork::predictAllForScore(const Dataset& dataset, Datatype d,  in
 			s += distanceVector(predict(*dataset.getIns(d)[i]), *dataset.getOuts(d)[i]);
 	//Sinon on prend "limit" données
 	else
-		for (size_t i = 0; i < limit; i++)
+		for (int i = 0; i < limit; i++)
 		{
 			int r = rand() % dataset.getIns(d).size();
 			s += distanceVector(predict(*dataset.getIns(d)[r]), *dataset.getOuts(d)[r]);

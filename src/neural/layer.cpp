@@ -79,13 +79,13 @@ const vector<Neuron *>& Layer::neurons() const
 
 void Layer::alterWeights(const vector<vector<double> >& weights)
 {
-    for(int i_neuron=0;i_neuron < weights.size(); ++i_neuron)
+    for(size_t i_neuron=0;i_neuron < weights.size(); ++i_neuron)
         _neurons[i_neuron]->alterWeights(weights[i_neuron]);
 }
 
 void Layer::shiftBackWeights(const vector<vector<double> >& weights)
 {
-	for (int i_neuron = 0; i_neuron < _neurons.size(); ++i_neuron)
+	for (size_t i_neuron = 0; i_neuron < _neurons.size(); ++i_neuron)
 		_neurons[i_neuron]->shiftBackWeights(weights[i_neuron]);
 }
 
@@ -93,7 +93,7 @@ vector<vector<double*> > Layer::getWeights()
 {
 	vector<vector<double*>> w;
 	w.reserve(_neurons.size());
-	for (int i_neuron = 0; i_neuron < _neurons.size(); ++i_neuron)
+	for (size_t i_neuron = 0; i_neuron < _neurons.size(); ++i_neuron)
 		w.push_back(std::move(_neurons[i_neuron]->getWeights()));
 	return std::move(w);
 }
@@ -102,7 +102,7 @@ vector<vector<Edge*> > Layer::getEdges()
 {
 	vector<vector<Edge*>> w;
 	w.reserve(_neurons.size());
-	for (int i_neuron = 0; i_neuron < _neurons.size(); ++i_neuron)
+	for (size_t i_neuron = 0; i_neuron < _neurons.size(); ++i_neuron)
 		w.push_back(std::move(_neurons[i_neuron]->getEdges()));
 	return std::move(w);
 }

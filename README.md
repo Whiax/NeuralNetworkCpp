@@ -29,6 +29,6 @@ PS: I worked on this project with Visual Studio / Windows and it seems that some
 - ShakingTree.h/.cpp: Exotic optimizer that’ll be detailed later.
 
 ## Computation example
-The algorithm was also made to exactly reproduce the “famous” article from Matt Mazur on his website: https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/
+The algorithm was also made to exactly reproduce the article from Matt Mazur on his website: https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/
 Just use the “mattmazur_step_by_step” branch on git, this branch serves only that purpose and contains older code than the code on “master”.
 

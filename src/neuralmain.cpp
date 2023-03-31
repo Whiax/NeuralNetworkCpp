@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 
 	Backpropagation opt;
 	opt.setBatchSize(60);
-    LEARNING_RATE = 0.5;
+        LEARNING_RATE = 0.5;
 	opt.setNeuralNetwork(&n);
 	opt.setDataset(&data);
 
